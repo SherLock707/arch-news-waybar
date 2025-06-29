@@ -1,0 +1,57 @@
+{
+  "include": [],
+  "layer": "top",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  "spacing": 3,
+  "fixed-center": true,
+  "ipc": true,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+  "reload_style_on_change": true,
+  "modules-left": [
+    "custom/arch_news"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock"
+  ],
+  "custom/arch_news": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.venv/bin/python ~/.config/waybar/custom_modules/arch_news.py 14 --active-color ff6b6b --inactive-color 4ecdc4",
+    "tooltip": true,
+    "interval": 3600,
+    "on-click": "xdg-open https://archlinux.org/news/"
+  },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 Muted",
+    "format-icons": ["󰕿", "󰖀", "󰕾"]
+  },
+  "network": {
+    "format-wifi": "󰤨 {signalStrength}%",
+    "format-ethernet": "󰈀 Connected",
+    "format-disconnected": "󰤭 Disconnected"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+  "clock": {
+    "format": "󰃰 {:%H:%M}",
+    "format-alt": "󰃰 {:%Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  }
+}

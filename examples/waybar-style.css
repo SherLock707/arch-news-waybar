@@ -1,0 +1,149 @@
+/* Waybar Style Example with Arch News Module */
+
+/* Color Variables */
+@define-color main-bg #1e1e2e;
+@define-color main-fg #cdd6f4;
+@define-color accent #89b4fa;
+@define-color warning #f9e2af;
+@define-color error #f38ba8;
+@define-color success #a6e3a1;
+
+/* Main Waybar Window */
+window#waybar {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Arch News Module */
+#custom-arch_news {
+    color: @main-fg;
+    background: alpha(@main-bg, 0.8);
+    opacity: 1;
+    padding: 4px 8px;
+    margin: 2px;
+    border: 1px solid @main-fg;
+    border-radius: 6px;
+    border-bottom: 3px solid @main-fg;
+    transition: all 0.3s ease;
+}
+
+#custom-arch_news:hover {
+    background: alpha(@accent, 0.2);
+    border-color: @accent;
+    transform: translateY(-1px);
+}
+
+#custom-arch_news.arch_news_active {
+    color: @warning;
+    border-color: @warning;
+    background: alpha(@warning, 0.1);
+    animation: pulse 2s infinite;
+}
+
+#custom-arch_news.arch_news_inactive {
+    color: @success;
+    border-color: @success;
+    background: alpha(@success, 0.1);
+}
+
+#custom-arch_news.arch-news-error {
+    color: @error;
+    border-color: @error;
+    background: alpha(@error, 0.1);
+}
+
+/* Pulse animation for active news */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 alpha(@warning, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 4px alpha(@warning, 0.1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 alpha(@warning, 0.0);
+    }
+}
+
+/* Other Waybar Modules */
+#workspaces {
+    background: alpha(@main-bg, 0.8);
+    border-radius: 6px;
+    padding: 2px 4px;
+    margin: 2px;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 1px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: @main-fg;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    background: @accent;
+    color: @main-bg;
+}
+
+#workspaces button:hover {
+    background: alpha(@accent, 0.3);
+}
+
+#pulseaudio,
+#network,
+#battery,
+#clock {
+    color: @main-fg;
+    background: alpha(@main-bg, 0.8);
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 6px;
+    border: 1px solid alpha(@main-fg, 0.3);
+}
+
+#pulseaudio.muted {
+    color: @error;
+}
+
+#battery.critical {
+    color: @error;
+    animation: blink 1s infinite;
+}
+
+#battery.warning {
+    color: @warning;
+}
+
+#battery.good {
+    color: @success;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0.5;
+    }
+}
+
+/* Tooltip Styling */
+tooltip {
+    background: @main-bg;
+    border: 1px solid @main-fg;
+    border-radius: 6px;
+    padding: 8px;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 12px;
+}
+
+tooltip label {
+    color: @main-fg;
+}
