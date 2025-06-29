@@ -2,7 +2,7 @@
 
 A custom Waybar module that displays recent Arch Linux news from the official RSS feed with customizable styling and colors.
 
-![Screenshot](https://github.com/user-attachments/assets/89bf87c3-beec-487a-9af8-7254d3bed190)
+![Screenshot](https://github.com/user-attachments/assets/2113298e-cce2-427a-a0bb-6af9d0d9e819)
 
 ## Features
 
