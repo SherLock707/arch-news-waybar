@@ -2,7 +2,7 @@
 
 A custom Waybar module that displays recent Arch Linux news from the official RSS feed with customizable styling and colors.
 
-![Screenshot](screenshots/arch-news-waybar.png)
+![Screenshot](https://github.com/user-attachments/assets/89bf87c3-beec-487a-9af8-7254d3bed190)
 
 ## Features
 
@@ -19,7 +19,7 @@ A custom Waybar module that displays recent Arch Linux news from the official RS
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/arch-news-waybar.git
+git clone https://github.com/SherLock707/arch-news-waybar.git
 cd arch-news-waybar
 ```
 
@@ -223,20 +223,6 @@ waybar -l debug
 5. Push to the branch: `git push origin feature-name`
 6. Submit a pull request
 
-## Screenshots
-
-### Light Theme
-![Light Theme](screenshots/light-theme.png)
-
-### Dark Theme
-![Dark Theme](screenshots/dark-theme.png)
-
-### Active State (with news)
-![Active State](screenshots/active-state.png)
-
-### Inactive State (no recent news)
-![Inactive State](screenshots/inactive-state.png)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -249,7 +235,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Your Name (@yourusername)
+SherLock707 (@SherLock707)
 
 ## Acknowledgments
 
