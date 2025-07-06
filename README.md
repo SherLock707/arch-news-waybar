@@ -37,8 +37,8 @@ A custom Waybar module that displays recent Arch Linux news from the official RS
 3.  Copy the module to your Waybar config directory:
     ```bash
     mkdir -p ~/.config/waybar/custom_modules
-    cp arch_news.sh ~/.config/waybar/custom_modules/
-    chmod +x ~/.config/waybar/custom_modules/arch_news.sh
+    cp arch_news ~/.config/waybar/custom_modules/
+    chmod +x ~/.config/waybar/custom_modules/arch_news
     ```
 
 ## Configuration
@@ -52,7 +52,7 @@ Add this to your `~/.config/waybar/config.json`:
   "custom/arch_news": {
     "format": "{}",
     "return-type": "json",
-    "exec": "~/.config/waybar/custom_modules/arch_news.sh 14",
+    "exec": "~/.config/waybar/custom_modules/arch_news 14",
     "tooltip": true,
     "interval": 3600,
     "on-click": "xdg-open https://archlinux.org/news/"
@@ -112,23 +112,23 @@ Add this to your `~/.config/waybar/style.css`:
 
 ```bash
 # Show news from last 7 days (default)
-./arch_news.sh
+./arch_news
 
 # Show news from last 14 days
-./arch_news.sh 14
+./arch_news 14
 
 # Show news from last 30 days
-./arch_news.sh 30
+./arch_news 30
 ```
 
 ### With Custom Colors
 
 ```bash
 # Custom colors for active and inactive states
-./arch_news.sh 14 --active-color "#ff6b6b" --inactive-color "#4ecdc4"
+./arch_news 14 --active-color "#ff6b6b" --inactive-color "#4ecdc4"
 
 # Using hex colors without quotes
-./arch_news.sh 7 --active-color ff6b6b --inactive-color 4ec4
+./arch_news 7 --active-color ff6b6b --inactive-color 4ec4
 ```
 
 ### Command Line Arguments
@@ -168,7 +168,7 @@ The tooltip shows recent news with dates:
 
 ### Changing the Icon
 
-Edit the `arch_news.sh` script and change the icon in the `tooltip` variable:
+Edit the `arch_news` script and change the icon in the `tooltip` variable:
 
 ```bash
 # Change the icon in the following line
@@ -207,7 +207,7 @@ rss_url="https://archlinux.org/feeds/news/"
 Run the script directly to see output:
 
 ```bash
-~/.config/waybar/custom_modules/arch_news.sh 7
+~/.config/waybar/custom_modules/arch_news 7
 ```
 
 ### Logs
