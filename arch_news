@@ -11,7 +11,7 @@ inactive_color=""
 # Argument parsing
 if [[ "$1" =~ ^[0-9]+$ ]]; then
     if [ "$1" -le 0 ]; then
-        jq -n --arg msg "Error: Days must be a positive number" \
+        jq -cn --arg msg "Error: Days must be a positive number" \
             '{"text": " ✗", "tooltip": $msg, "class": "arch-news-error"}'
         exit 1
     fi
@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
         exit 0
         ;;
         *)
-        jq -n --arg msg "Error: Unknown option $1" \
+        jq -cn --arg msg "Error: Unknown option $1" \
             '{"text": " ✗", "tooltip": $msg, "class": "arch-news-error"}'
         exit 1
         ;;
@@ -48,13 +48,13 @@ rss_url="https://archlinux.org/feeds/news/"
 # Fetch the feed
 feed_xml=$(curl -s -A "Waybar-ArchNews/1.0" "$rss_url")
 if [ $? -ne 0 ]; then
-    jq -n --arg msg "Error: Failed to fetch RSS feed" \
+    jq -cn --arg msg "Error: Failed to fetch RSS feed" \
         '{"text": " ✗", "tooltip": $msg, "class": "arch-news-error"}'
     exit 1
 fi
 
 if [ -z "$feed_xml" ]; then
-    jq -n --arg msg "Error: Empty RSS feed" \
+    jq -cn --arg msg "Error: Empty RSS feed" \
         '{"text": " ✗", "tooltip": $msg, "class": "arch-news-error"}'
     exit 1
 fi
@@ -67,7 +67,7 @@ echo "$feed_xml" | xmlstarlet sel -t -m "//item" -o '{' \
     -o '"title":"' -v "title" -o '",' \
     -o '"pubDate":"' -v "pubDate" -o '"' \
     -o '}' -n | \
-    jq -s --argjson cutoff "$cutoff_date" --arg active_color "$active_color" --arg inactive_color "$inactive_color" --arg days "$days" '
+    jq -c -s --argjson cutoff "$cutoff_date" --arg active_color "$active_color" --arg inactive_color "$inactive_color" --arg days "$days" '
     # jq function to parse RFC-822 date format
     def parse_rfc822_date(date_str):
         # Example: "Sat, 21 Jun 2025 23:09:08 +0000"
