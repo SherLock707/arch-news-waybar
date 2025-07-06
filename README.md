@@ -145,24 +145,13 @@ Add this to your `~/.config/waybar/style.css`:
 ```json
 {
   "text": " 3",
-  "tooltip": "
-
-
-",
+  "tooltip": " <span color=\"#a6e3a1\">linux-firmware &gt;= 20250613.12fe085f-5 upgrade requires manual intervention (2025-06-21 23:09)<\/span>\n\n <span color=\"#a6e3a1\">Plasma 6.4.0 will need manual intervention if you are on X11 (2025-06-20 07:08)<\/span>\n\n <span color=\"#a6e3a1\">Transition to the new WoW64 wine and wine-staging (2025-06-16 16:22)<\/span>",
   "class": "arch_news_active",
   "percentage": 30,
   "color": "#a6e3a1"
 }
 ```
-
-### Tooltip Format
-
-The tooltip shows recent news with dates:
-```
-
-
-
-```
+  
 
 ## Customization
 
