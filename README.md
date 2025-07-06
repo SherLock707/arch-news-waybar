@@ -13,29 +13,33 @@ A custom Waybar module that displays recent Arch Linux news from the official RS
 - 📊 Shows count of recent news items
 - 💡 Detailed tooltip with news headlines and dates
 - 🔄 Auto-refresh every hour
-- ⚡ Lightweight and efficient
+- ⚡ Lightweight and efficient, written in Bash
+
+## Dependencies
+
+- `curl`
+- `xmlstarlet`
+- `jq`
 
 ## Installation
 
-1. Clone this repository:
-```bash
-git clone https://github.com/SherLock707/arch-news-waybar.git
-cd arch-news-waybar
-```
+1.  Clone this repository:
+    ```bash
+    git clone https://github.com/SherLock707/arch-news-waybar.git
+    cd arch-news-waybar
+    ```
 
-2. Create a Python virtual environment (recommended):
-```bash
-python -m venv ~/.venv
-source ~/.venv/bin/activate
-pip install feedparser
-```
+2.  Make sure you have the required dependencies installed. On Arch Linux, you can install them with:
+    ```bash
+    sudo pacman -S curl xmlstarlet jq
+    ```
 
-3. Copy the module to your Waybar config directory:
-```bash
-mkdir -p ~/.config/waybar/custom_modules
-cp arch_news.py ~/.config/waybar/custom_modules/
-chmod +x ~/.config/waybar/custom_modules/arch_news.py
-```
+3.  Copy the module to your Waybar config directory:
+    ```bash
+    mkdir -p ~/.config/waybar/custom_modules
+    cp arch_news.sh ~/.config/waybar/custom_modules/
+    chmod +x ~/.config/waybar/custom_modules/arch_news.sh
+    ```
 
 ## Configuration
 
@@ -48,7 +52,7 @@ Add this to your `~/.config/waybar/config.json`:
   "custom/arch_news": {
     "format": "{}",
     "return-type": "json",
-    "exec": "~/.venv/bin/python ~/.config/waybar/custom_modules/arch_news.py 14",
+    "exec": "~/.config/waybar/custom_modules/arch_news.sh 14",
     "tooltip": true,
     "interval": 3600,
     "on-click": "xdg-open https://archlinux.org/news/"
@@ -108,32 +112,29 @@ Add this to your `~/.config/waybar/style.css`:
 
 ```bash
 # Show news from last 7 days (default)
-python arch_news.py
+./arch_news.sh
 
 # Show news from last 14 days
-python arch_news.py 14
+./arch_news.sh 14
 
 # Show news from last 30 days
-python arch_news.py 30
+./arch_news.sh 30
 ```
 
 ### With Custom Colors
 
 ```bash
 # Custom colors for active and inactive states
-python arch_news.py 14 --active-color "#ff6b6b" --inactive-color "#4ecdc4"
+./arch_news.sh 14 --active-color "#ff6b6b" --inactive-color "#4ecdc4"
 
 # Using hex colors without quotes
-python arch_news.py 7 --active-color ff6b6b --inactive-color 4ecdc4
-
-# Using named colors
-python arch_news.py 14 --active-color red --inactive-color green
+./arch_news.sh 7 --active-color ff6b6b --inactive-color 4ec4
 ```
 
 ### Command Line Arguments
 
 - `days` (positional): Number of days to look back for news (default: 7)
-- `--active-color`: Color when there are recent news items (default: system theme)
+- `--active-color`: Color when there are recent news items (default: #a6e3a1)
 - `--inactive-color`: Color when there are no recent news items (default: system theme)
 - `--help`: Show help message
 
@@ -144,9 +145,13 @@ python arch_news.py 14 --active-color red --inactive-color green
 ```json
 {
   "text": " 3",
-  "tooltip": " Critical update for systemd\n Package signing key rotation\n New kernel release 6.7.1",
+  "tooltip": "
+
+
+",
   "class": "arch_news_active",
-  "percentage": 30
+  "percentage": 30,
+  "color": "#a6e3a1"
 }
 ```
 
@@ -154,23 +159,22 @@ python arch_news.py 14 --active-color red --inactive-color green
 
 The tooltip shows recent news with dates:
 ```
- Critical update for systemd (2024-01-15 14:30)
 
- Package signing key rotation (2024-01-14 09:15)
 
- New kernel release 6.7.1 (2024-01-13 16:45)
+
 ```
 
 ## Customization
 
 ### Changing the Icon
 
-Edit the `get_waybar_output()` method in `arch_news.py`:
+Edit the `arch_news.sh` script and change the icon in the `tooltip` variable:
 
-```python
-text = f"📰 {count}"  # Use newspaper emoji
-text = f"🔔 {count}"  # Use bell emoji
-text = f"📢 {count}"  # Use megaphone emoji
+```bash
+# Change the icon in the following line
+tooltip=$(echo "$news_items_json" | jq -r --arg color "$active_color" '
+    map("\uf061 <span color=\"\($color)\">\(.title) (\(.pubDate | parse_rfc822_date))</span>") | .[0:3] | join("\n\n")
+')
 ```
 
 ### Adjusting Refresh Interval
@@ -186,24 +190,24 @@ Modify the `interval` in your Waybar config:
 
 You can modify the RSS URL in the script:
 
-```python
-self.rss_url = "https://archlinux.org/feeds/news/"
+```bash
+rss_url="https://archlinux.org/feeds/news/"
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Module not showing**: Check if the Python path is correct and the virtual environment is accessible
-2. **No news displayed**: Verify internet connection and RSS feed accessibility
-3. **Styling not applied**: Ensure CSS classes match between the script and your stylesheet
+1. **Module not showing**: Check if the script path is correct and the script is executable.
+2. **No news displayed**: Verify internet connection and RSS feed accessibility. Also check if `curl`, `xmlstarlet`, and `jq` are installed.
+3. **Styling not applied**: Ensure CSS classes match between the script and your stylesheet.
 
 ### Debug Mode
 
 Run the script directly to see output:
 
 ```bash
-python ~/.config/waybar/custom_modules/arch_news.py 7
+~/.config/waybar/custom_modules/arch_news.sh 7
 ```
 
 ### Logs
@@ -226,12 +230,6 @@ waybar -l debug
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Dependencies
-
-- Python 3.6+
-- feedparser
-- Waybar
 
 ## Author
 
