@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # A bash script to fetch and display Arch Linux news for Waybar.
-# Replicates the functionality of the original Python script.
 
 # Default values
 days=7
-active_color="#a6e3a1" # Default active color from the python script
+active_color="#a6e3a1" 
 inactive_color=""
 
 # Argument parsing
